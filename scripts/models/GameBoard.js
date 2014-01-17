@@ -31,6 +31,11 @@ define(function () {
     	
     	constructor: GameBoard,
     	
+        handleClick: function(x,y)
+        {
+            console.log('clicked '+x+':'+y);
+        },
+
         draw: function (graphics) {
             var x,y;
             for(x = 0; x < this.map.length; x++)

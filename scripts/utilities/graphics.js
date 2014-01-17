@@ -62,7 +62,11 @@ define(function () {
         // shim layer with setTimeout fallback
 		fetchFrame : function (callback){
 		  return  requestAnimFrame(callback);
-		}
+		},
+
+		translateX : function (x) { return Math.floor(x / this.tileWidth); },
+
+		translateY : function (y) { return Math.floor(y / this.tileHeight); }
     };
 
     /*------------------------------------------
