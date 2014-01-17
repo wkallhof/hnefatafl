@@ -10,12 +10,14 @@ define(function () {
 
         if(canvas)
         {
-        	this.context = canvas.get(0).getContext("2d");
-        	this.width = canvas.width;
-        	this.height = canvas.height;
-        	this.tileHeight = 32;
-        	this.tileWidth = 32;
+        	this.tileHeight = 40;
+        	this.tileWidth = 40;
         	this.pieceSize = 10;
+
+        	canvas.get(0).width = this.tileWidth*11;
+        	canvas.get(0).height = this.tileHeight*11;
+
+        	this.context = canvas.get(0).getContext("2d"); 	
         }
     }
  
