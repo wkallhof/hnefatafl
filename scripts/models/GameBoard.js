@@ -27,8 +27,10 @@ define(function (require) {
 
         movePiece: function(piece,x,y)
         {
-            piece.x = x;
-            piece.y = y;
+            if(!this.getPiece(x,y)){
+                piece.x = x;
+                piece.y = y;
+            }
         },
 
         getPiece: function(x,y)
