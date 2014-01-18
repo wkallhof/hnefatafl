@@ -30,9 +30,21 @@ define(function (require) {
             if(this.activePiece) graphics.drawHover(this.activePiece.x, this.activePiece.y);
         },
 
+        handleClick: function(x,y)
+        {
+            if(!this.activePiece)
+            {
+                this.setActivePiece(x,y);
+                return;
+            }
+
+            this.gameBoard.movePiece(this.activePiece,x,y);
+            this.activePiece = null;
+        },
+
         setActivePiece: function(x,y)
         {
-            this.activePiece = _.find(this.gameBoard.pieces, {"x":x, "y":y});
+            this.activePiece = this.gameBoard.getPiece(x,y);
         }
     };
 

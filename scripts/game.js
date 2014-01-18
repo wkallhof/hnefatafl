@@ -40,7 +40,7 @@ define(function(require){
 	{
 		var tileX = graphics.translateX(x);
 		var tileY = graphics.translateY(y);
-		state.setActivePiece(tileX, tileY);
+		state.handleClick(tileX, tileY);
 	}
 	
 	function run()

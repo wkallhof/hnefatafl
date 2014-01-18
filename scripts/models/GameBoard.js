@@ -25,6 +25,17 @@ define(function (require) {
     	
     	constructor: GameBoard,
 
+        movePiece: function(piece,x,y)
+        {
+            piece.x = x;
+            piece.y = y;
+        },
+
+        getPiece: function(x,y)
+        {
+            return _.find(this.pieces, {"x":x, "y":y});
+        },
+
         draw: function (graphics) {
             //Draw tiles
             _.forEach(this.tiles,function(tile){
