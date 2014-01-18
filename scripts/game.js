@@ -2,39 +2,49 @@
 
 require.config({
     paths: {
-        'jQuery': 'lib/jquery'
+        'jQuery': 'lib/jquery',
+        'lodash': 'lib/lodash'
     },
     shim: {
-        'jQuery': {
-            exports: '$'
-        }
+        'jQuery': { exports: '$'},
+        'lodash': { exports: '_'}
     }
 });
 
+define(function(require){
 
-define(["jQuery", "utilities/graphics", "models/gameboard", 
-	"models/gamestate", "utilities/input"], function($, Graphics, GameBoard, GameState, Input) {
+	var $ = require("jQuery");
+	var Graphics = require("utilities/graphics");
+	var Input = require("utilities/input");
+	var GameBoard = require("models/gameboard");
+	var GameState = require("models/gamestate");
 
 	"use strict";
 	var canvas = $("#canvas");
 	var graphics = new Graphics(canvas);
 	var input = new Input(canvas);
 
-	var gameBoard = new GameBoard();
 	var state = new GameState();
 
 	input.subscribeToClick(handleInput);
+	input.subscribeToHover(handleHover);
+
+	function handleHover(x,y)
+	{
+		var tileX = graphics.translateX(x);
+		var tileY = graphics.translateY(y);
+		//state.setActivePiece(tileX, tileY);
+	}
 
 	function handleInput(x,y)
 	{
 		var tileX = graphics.translateX(x);
 		var tileY = graphics.translateY(y);
-		gameBoard.handleClick(tileX,tileY);
+		state.setActivePiece(tileX, tileY);
 	}
 	
 	function run()
 	{
-		gameBoard.draw(graphics);
 		state.draw(graphics);
 		graphics.fetchFrame(run);
 	}

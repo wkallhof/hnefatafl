@@ -39,7 +39,7 @@ define(function () {
     	
         drawTile: function (x,y,value) {
             this.context.beginPath();
-			this.context.rect(x*this.tileWidth,y*this.tileHeight,x+this.tileWidth,y+this.tileHeight);
+			this.context.rect(x*this.tileWidth,y*this.tileHeight,this.tileWidth,this.tileHeight);
 			this.context.fillStyle = fetchTileFillStyle(value);
 			this.context.fill();
 			this.context.lineWidth = 2;
@@ -61,7 +61,14 @@ define(function () {
 			this.context.stroke();
         },
 
-        // shim layer with setTimeout fallback
+        drawHover: function (x,y,value){
+        	this.context.beginPath();
+			this.context.rect(x*this.tileWidth,y*this.tileHeight,this.tileWidth,this.tileHeight);
+			this.context.lineWidth = 3;
+			this.context.strokeStyle = 'brown';
+			this.context.stroke();
+        },
+        
 		fetchFrame : function (callback){
 		  return  requestAnimFrame(callback);
 		},

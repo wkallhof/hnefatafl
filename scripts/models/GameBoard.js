@@ -1,17 +1,47 @@
 
-define(function () {
+define(function (require) {
     // Forces the JavaScript engine into strict mode: http://tinyurl.com/2dondlh
     "use strict";
- 
+    
+    var BoardTile = require("models/boardtile");
+    var GamePiece = require("models/gamepiece");
+    var _ = require("lodash");
+
+    /* Represents the physical game board and pieces */
     function GameBoard() {
         if (!(this instanceof GameBoard)) {
             throw new TypeError("GameBoard constructor cannot be called as a function.");
         }
 
-        this.map = initMap();
+        this.pieces = initPieces(loadPieceMap());
+        this.tiles = initTiles(loadTileMap());
     }
 
-    function initMap() {
+
+    /*------------------------------------------
+    |            PUBLIC METHODS                |
+    -------------------------------------------*/
+    GameBoard.prototype = {
+    	
+    	constructor: GameBoard,
+
+        draw: function (graphics) {
+            //Draw tiles
+            _.forEach(this.tiles,function(tile){
+                graphics.drawTile(tile.x,tile.y,tile.type);
+            });
+
+            //Draw Pieces
+            _.forEach(this.pieces,function(piece){
+                graphics.drawPiece(piece.x,piece.y,piece.type);
+            });
+        }
+    };
+
+    /*------------------------------------------
+    |            PRIVATE METHODS                |
+    -------------------------------------------*/
+    function loadTileMap() {
         return [
         [1,0,0,1,1,1,1,1,0,0,1],
         [0,0,0,0,0,1,0,0,0,0,0],
@@ -26,27 +56,50 @@ define(function () {
         [1,0,0,1,1,1,1,1,0,0,1]
         ];
     };
- 
-    GameBoard.prototype = {
-    	
-    	constructor: GameBoard,
-    	
-        handleClick: function(x,y)
-        {
-            console.log('clicked '+x+':'+y);
-        },
 
-        draw: function (graphics) {
-            var x,y;
-            for(x = 0; x < this.map.length; x++)
+    function initTiles(map){
+        var x,y;
+        var tiles = [];
+
+        for(x = 0; x < map.length; x++)
+        {
+            for(y = 0; y < map[x].length; y++)
             {
-                for(y = 0; y < this.map[x].length; y++)
-                {
-                    graphics.drawTile(x,y,this.map[x][y]);
-                }
+                tiles.push(new BoardTile(x,y,map[x][y]));
             }
         }
+        return tiles;
+    }
+
+    function loadPieceMap() {
+        return [
+        [1,0,0,1,1,1,1,1,0,0,1],
+        [0,0,0,0,0,1,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0],
+        [1,0,0,0,0,2,0,0,0,0,1],
+        [1,0,0,0,2,2,2,0,0,0,1],
+        [1,1,0,2,2,3,2,2,0,1,1],
+        [1,0,0,0,2,2,2,0,0,0,1],
+        [1,0,0,0,0,2,0,0,0,0,1],
+        [0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,1,0,0,0,0,0],
+        [1,0,0,1,1,1,1,1,0,0,1]
+        ];
     };
+
+    function initPieces(map)
+    {
+        var x,y;
+        var pieces = [];
+        for(x = 0; x < map.length; x++)
+        {
+            for(y = 0; y < map[x].length; y++)
+            {
+                if(map[x][y] != 0) pieces.push(new GamePiece(x,y,map[x][y]));
+            }
+        }
+        return pieces;
+    }
 
     return GameBoard;
 });

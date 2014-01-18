@@ -1,45 +1,38 @@
 
-define(function () {
+define(function (require) {
     // Forces the JavaScript engine into strict mode: http://tinyurl.com/2dondlh
     "use strict";
  
+    var GameBoard = require("models/gameboard");
+    var _ = require("lodash");
+
     function GameState() {
         if (!(this instanceof GameState)) {
             throw new TypeError("GameState constructor cannot be called as a function.");
         }
 
-        this.pieceMap = initPieceMap();
+        
+        this.activePiece = null;
+        this.gameBoard = new GameBoard();
     }
 
-    function initPieceMap() {
-        return [
-        [1,0,0,1,1,1,1,1,0,0,1],
-        [0,0,0,0,0,1,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0],
-        [1,0,0,0,0,2,0,0,0,0,1],
-        [1,0,0,0,2,2,2,0,0,0,1],
-        [1,1,0,2,2,2,2,2,0,1,1],
-        [1,0,0,0,2,2,2,0,0,0,1],
-        [1,0,0,0,0,2,0,0,0,0,1],
-        [0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,1,0,0,0,0,0],
-        [1,0,0,1,1,1,1,1,0,0,1]
-        ];
-    };
- 
+    /*------------------------------------------
+    |            PUBLIC METHODS                |
+    -------------------------------------------*/
     GameState.prototype = {
     	
     	constructor: GameState,
     	
         draw: function (graphics) {
-            var x,y;
-            for(x = 0; x < this.pieceMap.length; x++)
-            {
-                for(y = 0; y < this.pieceMap[x].length; y++)
-                {
-                    graphics.drawPiece(x,y,this.pieceMap[x][y]);
-                }
-            }
+            //Draw the board
+            this.gameBoard.draw(graphics);
+            //Highlight active piece
+            if(this.activePiece) graphics.drawHover(this.activePiece.x, this.activePiece.y);
+        },
+
+        setActivePiece: function(x,y)
+        {
+            this.activePiece = _.find(this.gameBoard.pieces, {"x":x, "y":y});
         }
     };
 

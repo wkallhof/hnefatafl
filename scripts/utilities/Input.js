@@ -11,10 +11,12 @@ define(["jQuery"], function ($) {
         if(canvas)
         {
             this.clickSubscribers = [];
+            this.hoverSubscribers = [];
         	this.canvas = canvas;
         	this.width = canvas.width;
         	this.height = canvas.height;
             bindClick(this);
+            bindHover(this);
         }
     }
 
@@ -29,6 +31,10 @@ define(["jQuery"], function ($) {
     	
         subscribeToClick: function (callback) {
             this.clickSubscribers.push(callback);
+        },
+
+        subscribeToHover: function (callback){
+            this.hoverSubscribers.push(callback);
         }
     };
 
@@ -47,5 +53,19 @@ define(["jQuery"], function ($) {
             }
         });
     }
+
+    function bindHover(input)
+    {
+        input.canvas.on('mousemove',function(e)
+        {
+            for(var i = 0; i < input.hoverSubscribers.length; i++)
+            {
+                var x = (e.pageX-input.canvas.offset().left);
+                var y = (e.pageY-input.canvas.offset().top);
+                input.hoverSubscribers[i](x,y);
+            }
+        });
+    }
+
     return Input;
 });
