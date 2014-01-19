@@ -1,5 +1,5 @@
 body {
-    background-color: #999999;
+    background-color: #E8DAA0;
     font-size:12px;
     font-family:Verdana, Arial, Helvetica, sans-serif;
 
@@ -7,13 +7,13 @@ body {
 
 div#outer {
     width: 80%;
-    background-color:#FFFFFF;
+    background-color:#EDE7CC;
     margin-top: 50px;
     margin-bottom: 50px;
     margin-left: auto;
     margin-right: auto;
     padding: 0px;
-    border: thin solid #000000;
+    border: thin solid #AD9F66;
 
 }
 

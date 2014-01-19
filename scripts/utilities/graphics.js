@@ -10,9 +10,9 @@ define(function () {
 
         if(canvas)
         {
-        	this.tileHeight = 40;
-        	this.tileWidth = 40;
-        	this.pieceSize = 10;
+        	this.tileHeight = 60;
+        	this.tileWidth = 60;
+        	this.pieceSize = 20;
 
         	canvas.get(0).width = this.tileWidth*11;
         	canvas.get(0).height = this.tileHeight*11;
