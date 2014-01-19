@@ -1,13 +1,27 @@
+
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Hnefatafl</title>
-        <!-- data-main attribute tells require.js to load
-             scripts/main.js after require.js loads. -->
+	<head>
+		<title>Hnefatafl</title>
+        <link rel="stylesheet" href="styles/screen.css"/>
         <script data-main="scripts/game" src="scripts/lib/require.js"></script>
     </head>
     <body>
-        <h1>Hnefatafl</h1>
-        <canvas id="canvas" width="352" height="352"></canvas>
+    	<div id="outer">
+    		<div id="header">
+    			<img src="images/logo.png" alt="Hnefatafl"/>
+    		</div>
+    		<div id="nav">
+    			<h4></h4>
+    			<ul>
+    			</ul>
+    		</div>
+    		<div id="main">
+    			<canvas id="canvas" width="352" height="352"></canvas>
+    		</div>
+    		<div id="footer">
+    			<p></p>
+    		</div>
+    	</div>
     </body>
-</html>
+    </html>

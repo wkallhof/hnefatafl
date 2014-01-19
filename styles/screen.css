@@ -1,0 +1,54 @@
+body {
+    background-color: #999999;
+    font-size:12px;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+
+}
+
+div#outer {
+    width: 80%;
+    background-color:#FFFFFF;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px;
+    border: thin solid #000000;
+
+}
+
+div#header {
+    padding: 15px;
+    margin: 0px;
+    /*text-align: center;*/
+
+}
+
+div#header img {
+    display: block;
+    margin: 0 auto;
+}
+
+div#nav {
+/*    width: 25%;
+    padding: 10px;
+    margin-top: 1px;
+    float: left;*/
+
+}
+
+div#main {
+    padding: 15px 15px 50px 15px;
+}
+
+div#main canvas {
+    display: block;
+    margin: 0 auto;
+}
+
+div#footer {
+    padding: 15px;
+    margin: 0px;
+    /*border-top: thin solid #000000;*/
+
+}
