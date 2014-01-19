@@ -10,9 +10,11 @@ define(function () {
 
         if(canvas)
         {
-        	this.tileHeight = 60;
-        	this.tileWidth = 60;
-        	this.pieceSize = 20;
+        	this.tileHeight = 64;
+        	this.tileWidth = 64;
+        	this.pieceSize = 64;
+            this.spriteMap = null;
+            this.spritePath = "images/game/sprites.png";
 
         	canvas.get(0).width = this.tileWidth*11;
         	canvas.get(0).height = this.tileHeight*11;
@@ -36,7 +38,15 @@ define(function () {
     Graphics.prototype = {
     	
     	constructor: Graphics,
-    	
+    	loadGraphics: function(callback)
+        {
+            this.spriteMap = new Image();
+            this.spriteMap.src = this.spritePath;
+            this.spriteMap.onload = function () {
+                callback();
+            };
+        },
+
         drawTile: function (x,y,value) {
             this.context.beginPath();
 			this.context.rect(x*this.tileWidth,y*this.tileHeight,this.tileWidth,this.tileHeight);
@@ -48,17 +58,9 @@ define(function () {
         },
 
         drawPiece: function (x,y,value) {
-        	if(value == 0) return;
-
-        	var centerX = (x*this.tileWidth)+(this.tileWidth/2);
-        	var centerY = (y*this.tileHeight)+(this.tileHeight/2);
-			this.context.beginPath();
-			this.context.arc(centerX, centerY , this.pieceSize, 0, 2 * Math.PI, false);
-			this.context.fillStyle = fetchPieceFillStyle(value);
-			this.context.fill();
-			this.context.lineWidth = 1;
-			this.context.strokeStyle = 'black';
-			this.context.stroke();
+         	if(value == 0) return;
+            var offset = fetchPieceSpriteOffset(value);
+            this.context.drawImage(this.spriteMap, offset * this.pieceSize, 0, this.pieceSize, this.pieceSize, (x*this.tileWidth), (y*this.tileHeight), this.pieceSize, this.pieceSize);
         },
 
         drawHover: function (x,y,value){
@@ -81,6 +83,11 @@ define(function () {
     /*------------------------------------------
     |            PRIVATE METHODS                |
     -------------------------------------------*/
+    function loadSpriteSheet()
+    {
+
+    };
+
     function fetchTileFillStyle(value) {
     	switch(value)
     	{
@@ -91,11 +98,12 @@ define(function () {
 
     };
 
-    function fetchPieceFillStyle(value) {
+    function fetchPieceSpriteOffset(value) {
     	switch(value)
     	{
-    		case 2 : return 'white';
-    		default : return 'grey';
+    		case 2 : return 1; // White Team
+            case 3: return 2; // King
+    		default : return 0; // Black Team
     	}
 
     };

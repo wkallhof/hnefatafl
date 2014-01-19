@@ -49,5 +49,9 @@ define(function(require){
 		graphics.fetchFrame(run);
 	}
 
-	run();
+	graphics.loadGraphics(function()
+	{
+		run();
+	});
+	
 });
