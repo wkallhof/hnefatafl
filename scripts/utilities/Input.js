@@ -43,13 +43,13 @@ define(["jQuery"], function ($) {
     -------------------------------------------*/
     function bindClick(input)
     {
-        input.canvas.on('click',function(e)
+        input.canvas.on('mousedown',function(e)
         {
             for(var i = 0; i < input.clickSubscribers.length; i++)
             {
                 var x = (e.pageX-input.canvas.offset().left);
                 var y = (e.pageY-input.canvas.offset().top);
-                input.clickSubscribers[i](x,y);
+                input.clickSubscribers[i](x,y,e.button);
             }
         });
     }

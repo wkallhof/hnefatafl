@@ -21,6 +21,8 @@ define(function(require){
 
 	"use strict";
 	var canvas = $("#canvas");
+	canvas.on('contextmenu',function(){ return false;});
+	
 	var graphics = new Graphics(canvas);
 	var input = new Input(canvas);
 
@@ -36,11 +38,11 @@ define(function(require){
 		//state.setActivePiece(tileX, tileY);
 	}
 
-	function handleInput(x,y)
+	function handleInput(x,y,button)
 	{
 		var tileX = graphics.translateX(x);
 		var tileY = graphics.translateY(y);
-		state.handleClick(tileX, tileY);
+		state.handleClick(tileX, tileY, button);
 	}
 	
 	function run()

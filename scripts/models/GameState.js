@@ -32,16 +32,25 @@ define(function (require) {
             this.gameBoard.drawPieces(graphics);
         },
 
-        handleClick: function(x,y)
+        handleClick: function(x,y,button)
         {
-            if(!this.activePiece)
+            //Right Click
+            if(button == 2)
             {
-                this.setActivePiece(x,y);
-                return;
+                this.gameBoard.removePiece(x,y);
+            }
+            //Left Click
+            else{
+                if(!this.activePiece)
+                {
+                    this.setActivePiece(x,y);
+                    return;
+                }
+
+                this.gameBoard.movePiece(this.activePiece,x,y);
+                this.activePiece = null;
             }
 
-            this.gameBoard.movePiece(this.activePiece,x,y);
-            this.activePiece = null;
         },
 
         setActivePiece: function(x,y)
