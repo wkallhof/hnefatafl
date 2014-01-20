@@ -38,16 +38,18 @@ define(function (require) {
             return _.find(this.pieces, {"x":x, "y":y});
         },
 
-        draw: function (graphics) {
-            //Draw tiles
+        drawTiles: function (graphics) {
             _.forEach(this.tiles,function(tile){
                 graphics.drawTile(tile.x,tile.y,tile.type);
             });
+        },
 
-            //Draw Pieces
-            _.forEach(this.pieces,function(piece){
-                graphics.drawPiece(piece.x,piece.y,piece.type);
-            });
+        drawPieces: function(graphics) {
+            _.chain(this.pieces)
+                .sortBy("y")
+                .forEach(function(piece){
+                    graphics.drawPiece(piece.x,piece.y,piece.type);
+            }); 
         }
     };
 

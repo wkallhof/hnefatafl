@@ -12,12 +12,24 @@ define(function () {
         {
         	this.tileHeight = 64;
         	this.tileWidth = 64;
-        	this.pieceSize = 64;
-            this.spriteMap = null;
-            this.spritePath = "images/game/sprites.png";
 
-        	canvas.get(0).width = this.tileWidth*11;
-        	canvas.get(0).height = this.tileHeight*11;
+            this.borderWidth = 25;
+
+        	this.pieceHeight = 80;
+            this.pieceWidth = 45;
+            this.pieceHeightOffset = -19;
+            this.pieceWidthOffset = 8;
+
+            this.spriteCropHeight = 80;
+            this.spriteCropWidth = 45;
+            this.spriteMap = null;
+            this.spritePath = "images/game/spritesheet.png";
+
+            this.canvasWidth = (this.tileWidth*11)+(2*this.borderWidth);
+            this.cavnasHeight = (this.tileHeight*11)+(2*this.borderWidth);
+
+        	canvas.get(0).width = this.canvasWidth;
+        	canvas.get(0).height = this.cavnasHeight;
 
         	this.context = canvas.get(0).getContext("2d"); 	
         }
@@ -48,8 +60,10 @@ define(function () {
         },
 
         drawTile: function (x,y,value) {
+            var coords = fetchCanvasCoordsByTileCoords(x,y,this);
+
             this.context.beginPath();
-			this.context.rect(x*this.tileWidth,y*this.tileHeight,this.tileWidth,this.tileHeight);
+			this.context.rect(coords.x,coords.y,this.tileWidth,this.tileHeight);
 			this.context.fillStyle = fetchTileFillStyle(value);
 			this.context.fill();
 			this.context.lineWidth = 2;
@@ -59,33 +73,60 @@ define(function () {
 
         drawPiece: function (x,y,value) {
          	if(value == 0) return;
+
+            var coords = fetchCanvasCoordsByTileCoords(x,y,this);
             var offset = fetchPieceSpriteOffset(value);
-            this.context.drawImage(this.spriteMap, offset * this.pieceSize, 0, this.pieceSize, this.pieceSize, (x*this.tileWidth), (y*this.tileHeight), this.pieceSize, this.pieceSize);
+            this.context.drawImage(
+                this.spriteMap, //Image to draw
+                offset * this.spriteCropWidth, //crop x
+                0, //crop y
+                this.spriteCropWidth, //crop width
+                this.spriteCropHeight, //crop height
+                coords.x+this.pieceWidthOffset, //draw x
+                coords.y+this.pieceHeightOffset, //draw y
+                this.pieceWidth, //draw width
+                this.pieceHeight //draw height
+                );
         },
 
         drawHover: function (x,y,value){
+            var coords = fetchCanvasCoordsByTileCoords(x,y,this);
+
         	this.context.beginPath();
-			this.context.rect(x*this.tileWidth,y*this.tileHeight,this.tileWidth,this.tileHeight);
+			this.context.rect(coords.x,coords.y,this.tileWidth,this.tileHeight);
 			this.context.lineWidth = 3;
 			this.context.strokeStyle = 'brown';
 			this.context.stroke();
+        },
+
+        clearScreen: function(){
+            this.context.beginPath();
+            this.context.rect(0,0,this.canvasWidth,this.cavnasHeight);
+            this.context.fillStyle = '#755533';
+            this.context.fill();
+            this.context.lineWidth = 2;
+            this.context.strokeStyle = '#523B24';
+            this.context.stroke();
         },
         
 		fetchFrame : function (callback){
 		  return  requestAnimFrame(callback);
 		},
 
-		translateX : function (x) { return Math.floor(x / this.tileWidth); },
+		translateX : function (x) { return Math.floor((x - this.borderWidth) / this.tileWidth); },
 
-		translateY : function (y) { return Math.floor(y / this.tileHeight); }
+		translateY : function (y) { return Math.floor((y - this.borderWidth) / this.tileHeight); }
     };
 
     /*------------------------------------------
     |            PRIVATE METHODS                |
     -------------------------------------------*/
-    function loadSpriteSheet()
+    function fetchCanvasCoordsByTileCoords(x,y,graphics)
     {
-
+        return {
+            x:graphics.borderWidth + (x*graphics.tileWidth),
+            y:graphics.borderWidth + (y*graphics.tileHeight)
+        }
     };
 
     function fetchTileFillStyle(value) {

@@ -45,6 +45,7 @@ define(function(require){
 	
 	function run()
 	{
+		graphics.clearScreen();
 		state.draw(graphics);
 		graphics.fetchFrame(run);
 	}

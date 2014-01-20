@@ -24,10 +24,12 @@ define(function (require) {
     	constructor: GameState,
     	
         draw: function (graphics) {
-            //Draw the board
-            this.gameBoard.draw(graphics);
+            //draw the board tiles
+            this.gameBoard.drawTiles(graphics);
             //Highlight active piece
             if(this.activePiece) graphics.drawHover(this.activePiece.x, this.activePiece.y);
+            //Draw the board pieces
+            this.gameBoard.drawPieces(graphics);
         },
 
         handleClick: function(x,y)
