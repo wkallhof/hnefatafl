@@ -6,14 +6,14 @@ define(function (require) {
     var GameBoard = require("models/gameboard");
     var _ = require("lodash");
 
-    function GameState() {
+    function GameState(graphics) {
         if (!(this instanceof GameState)) {
             throw new TypeError("GameState constructor cannot be called as a function.");
         }
 
-        
+        this.graphics = graphics;
         this.activePiece = null;
-        this.gameBoard = new GameBoard();
+        this.gameBoard = new GameBoard(graphics);
     }
 
     /*------------------------------------------
@@ -23,13 +23,13 @@ define(function (require) {
     	
     	constructor: GameState,
     	
-        draw: function (graphics) {
+        draw: function () {
             //draw the board tiles
-            this.gameBoard.drawTiles(graphics);
+            this.gameBoard.drawTiles();
             //Highlight active piece
-            if(this.activePiece) graphics.drawHover(this.activePiece.x, this.activePiece.y);
+            if(this.activePiece) this.graphics.drawHover(this.activePiece.x, this.activePiece.y);
             //Draw the board pieces
-            this.gameBoard.drawPieces(graphics);
+            this.gameBoard.drawPieces();
         },
 
         handleClick: function(x,y,button)

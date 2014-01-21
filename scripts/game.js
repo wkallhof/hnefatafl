@@ -25,11 +25,9 @@ define(function(require){
 	
 	var graphics = new Graphics(canvas);
 	var input = new Input(canvas);
-
-	var state = new GameState();
+	var state = new GameState(graphics);
 
 	input.subscribeToClick(handleInput);
-	input.subscribeToHover(handleHover);
 
 	function handleHover(x,y)
 	{
@@ -47,8 +45,9 @@ define(function(require){
 	
 	function run()
 	{
+		graphics.updateTweens();
 		graphics.clearScreen();
-		state.draw(graphics);
+		state.draw();
 		graphics.fetchFrame(run);
 	}
 

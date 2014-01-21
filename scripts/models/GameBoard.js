@@ -8,13 +8,14 @@ define(function (require) {
     var _ = require("lodash");
 
     /* Represents the physical game board and pieces */
-    function GameBoard() {
+    function GameBoard(graphics) {
         if (!(this instanceof GameBoard)) {
             throw new TypeError("GameBoard constructor cannot be called as a function.");
         }
 
         this.pieces = initPieces(loadPieceMap());
         this.tiles = initTiles(loadTileMap());
+        this.graphics = graphics;
     }
 
 
@@ -28,6 +29,7 @@ define(function (require) {
         movePiece: function(piece,x,y)
         {
             if(!this.getPiece(x,y)){
+                this.graphics.movePiece(piece,x,y);
                 piece.x = x;
                 piece.y = y;
             }
@@ -46,18 +48,18 @@ define(function (require) {
             return _.find(this.pieces, {"x":x, "y":y});
         },
 
-        drawTiles: function (graphics) {
+        drawTiles: function () {
             _.forEach(this.tiles,function(tile){
-                graphics.drawTile(tile.x,tile.y,tile.type);
-            });
+                this.graphics.drawTile(tile.x,tile.y,tile.type);
+            }.bind(this));
         },
 
-        drawPieces: function(graphics) {
+        drawPieces: function() {
             _.chain(this.pieces)
                 .sortBy("y")
                 .forEach(function(piece){
-                    graphics.drawPiece(piece.x,piece.y,piece.type);
-            }); 
+                    this.graphics.drawPiece(piece);
+            }.bind(this)); 
         }
     };
 
@@ -113,12 +115,13 @@ define(function (require) {
     function initPieces(map)
     {
         var x,y;
+        var id = 0;
         var pieces = [];
         for(x = 0; x < map.length; x++)
         {
             for(y = 0; y < map[x].length; y++)
             {
-                if(map[x][y] != 0) pieces.push(new GamePiece(x,y,map[x][y]));
+                if(map[x][y] != 0) pieces.push(new GamePiece(id++,x,y,map[x][y]));
             }
         }
         return pieces;
