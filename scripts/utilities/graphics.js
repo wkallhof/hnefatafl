@@ -65,7 +65,7 @@ define(function (require) {
             };
         },
 
-        updateTweens: function()
+        update: function()
         {
             _.remove(this.tweens, {"finished":true});
 
@@ -87,11 +87,17 @@ define(function (require) {
         drawPiece: function (piece) {
          	if(piece.value == 0) return;
 
-            var point = (this.moveTween && !this.moveTween.finished && this.moveTween.id == piece.id)?
+            //Grab draw point from either a tween or tile point
+            var point = isMoveTween(this.moveTween,piece) ?
+                //Get draw point from current animation
                 this.moveTween.tick():
+                //Get draw point by tile point
                 fetchCanvasPointByTilePoint(piece.x,piece.y,this);
 
+            //Fetch spritesheet offset
             var offset = fetchPieceSpriteOffset(piece.type);
+
+            //Draw image
             this.context.drawImage(
                 this.spriteMap, //Image to draw
                 offset * this.spriteCropWidth, //crop x
@@ -118,6 +124,7 @@ define(function (require) {
         movePiece: function(piece,x,y){
             var startPoint = fetchCanvasPointByTilePoint(piece.x, piece.y, this);
             var endPoint = fetchCanvasPointByTilePoint(x,y,this);
+            
             this.moveTween = Anim.movePiece(piece.id,startPoint,endPoint);
         },
 
@@ -141,6 +148,11 @@ define(function (require) {
     /*------------------------------------------
     |            PRIVATE METHODS                |
     -------------------------------------------*/
+    function isMoveTween(tween, piece)
+    {
+        return tween && tween.id == piece.id && !tween.finished;
+    }
+
     function fetchCanvasPointByTilePoint(x,y,graphics)
     {
         return {
