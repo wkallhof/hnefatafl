@@ -3,7 +3,7 @@ define(function (require) {
     // Forces the JavaScript engine into strict mode: http://tinyurl.com/2dondlh
     "use strict";
  
-    var Anim = require("utilities/anim");
+    var Anim = require("Utilities/Anim");
 
     function Graphics(canvas) {
         if (!(this instanceof Graphics)) {
@@ -178,7 +178,6 @@ define(function (require) {
             case 3: return 2; // King
     		default : return 0; // Black Team
     	}
-
     };
 
     var requestAnimFrame = (function(callback) {

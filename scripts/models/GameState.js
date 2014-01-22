@@ -3,7 +3,7 @@ define(function (require) {
     // Forces the JavaScript engine into strict mode: http://tinyurl.com/2dondlh
     "use strict";
  
-    var GameBoard = require("models/gameboard");
+    var GameBoard = require("Models/GameBoard");
     var _ = require("lodash");
 
     function GameState(graphics) {
@@ -19,6 +19,7 @@ define(function (require) {
     /*------------------------------------------
     |            PUBLIC METHODS                |
     -------------------------------------------*/
+    
     GameState.prototype = {
     	
     	constructor: GameState,

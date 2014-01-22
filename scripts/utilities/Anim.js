@@ -2,7 +2,7 @@
 define(function (require) {
     // Forces the JavaScript engine into strict mode: http://tinyurl.com/2dondlh
     "use strict";
-    var Tween = require("models/tween");
+    var Tween = require("Models/Tween");
 
     function Anim(options) {
         if (!(this instanceof Anim)) {
@@ -77,8 +77,6 @@ define(function (require) {
           return (2 - delta(2*(1-progress))) / 2
       }
     }
-
-
 
     return Anim;
 });
