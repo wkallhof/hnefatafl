@@ -29,13 +29,6 @@ define(function(require){
 
 	input.subscribeToClick(handleInput);
 
-	function handleHover(x,y)
-	{
-		var tileX = graphics.translateX(x);
-		var tileY = graphics.translateY(y);
-		//state.setActivePiece(tileX, tileY);
-	}
-
 	function handleInput(x,y,button)
 	{
 		var tileX = graphics.translateX(x);
@@ -45,9 +38,13 @@ define(function(require){
 	
 	function run()
 	{
-		graphics.updateTweens();
+		//Update graphics
+		graphics.update();
+		//Clear the screen
 		graphics.clearScreen();
+		//Draw the game state / board
 		state.draw();
+		//Fetch a new frame
 		graphics.fetchFrame(run);
 	}
 
