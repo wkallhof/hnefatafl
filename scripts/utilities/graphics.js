@@ -3,7 +3,7 @@ define(function (require) {
     // Forces the JavaScript engine into strict mode: http://tinyurl.com/2dondlh
     "use strict";
  
-    var Tween = require("utilities/tween");
+    var Anim = require("utilities/anim");
 
     function Graphics(canvas) {
         if (!(this instanceof Graphics)) {
@@ -116,18 +116,9 @@ define(function (require) {
         },
 
         movePiece: function(piece,x,y){
-            var oldPoint = fetchCanvasPointByTilePoint(piece.x, piece.y, this);
-            var newPoint = fetchCanvasPointByTilePoint(x,y,this);
-
-            this.moveTween = new Tween({
-                id: piece.id,
-                start: oldPoint,
-                end: newPoint,
-                delay: 0,
-                duration: 500,
-                type: "easeInOutCirc"
-            });
-
+            var startPoint = fetchCanvasPointByTilePoint(piece.x, piece.y, this);
+            var endPoint = fetchCanvasPointByTilePoint(x,y,this);
+            this.moveTween = Anim.movePiece(piece.id,startPoint,endPoint);
         },
 
         clearScreen: function(){
