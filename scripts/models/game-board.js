@@ -3,8 +3,8 @@ define(function (require) {
     // Forces the JavaScript engine into strict mode: http://tinyurl.com/2dondlh
     "use strict";
     
-    var BoardTile = require("Models/BoardTile");
-    var GamePiece = require("Models/GamePiece");
+    var BoardTile = require("models/board-tile");
+    var GamePiece = require("models/game-piece");
     var _ = require("lodash");
 
     /* Represents the physical game board and pieces */

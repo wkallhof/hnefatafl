@@ -3,7 +3,7 @@ define(function (require) {
     // Forces the JavaScript engine into strict mode: http://tinyurl.com/2dondlh
     "use strict";
  
-    var GameBoard = require("Models/GameBoard");
+    var GameBoard = require("models/game-board");
     var _ = require("lodash");
 
     function GameState(graphics) {

@@ -2,8 +2,8 @@
 
 require.config({
     paths: {
-        'jQuery': 'Lib/jquery',
-        'lodash': 'Lib/lodash'
+        'jQuery': 'lib/jquery',
+        'lodash': 'lib/lodash'
     },
     shim: {
         'jQuery': { exports: '$'},
@@ -14,10 +14,10 @@ require.config({
 define(function(require){
 
 	var $ = require("jQuery");
-	var Graphics = require("Utilities/graphics");
-	var Input = require("Utilities/Input");
-	var GameBoard = require("Models/GameBoard");
-	var GameState = require("Models/GameState");
+	var Graphics = require("utilities/graphics");
+	var Input = require("utilities/input");
+	var GameBoard = require("models/game-board");
+	var GameState = require("models/game-state");
 
 	"use strict";
 	var canvas = $("#canvas");

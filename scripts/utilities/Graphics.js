@@ -3,7 +3,7 @@ define(function (require) {
     // Forces the JavaScript engine into strict mode: http://tinyurl.com/2dondlh
     "use strict";
  
-    var Anim = require("Utilities/Anim");
+    var Anim = require("utilities/anim");
 
     function Graphics(canvas) {
         if (!(this instanceof Graphics)) {

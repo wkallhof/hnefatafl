@@ -2,7 +2,7 @@
 define(function (require) {
     // Forces the JavaScript engine into strict mode: http://tinyurl.com/2dondlh
     "use strict";
-    var Tween = require("Models/Tween");
+    var Tween = require("models/tween");
 
     function Anim(options) {
         if (!(this instanceof Anim)) {
