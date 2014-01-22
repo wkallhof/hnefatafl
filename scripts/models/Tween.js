@@ -58,9 +58,5 @@ define(function () {
             return this.current;
         }
     };
-
-    /*------------------------------------------
-    |            PRIVATE METHODS                |
-    -------------------------------------------*/
     return Tween;
 });

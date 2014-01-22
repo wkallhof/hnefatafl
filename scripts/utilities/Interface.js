@@ -8,7 +8,6 @@ define(function () {
             throw new TypeError("Interface constructor cannot be called as a function.");
         }
     }
-
  
     /*------------------------------------------
     |            PUBLIC METHODS                |

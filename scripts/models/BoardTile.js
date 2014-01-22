@@ -22,4 +22,5 @@ define(function () {
     };
 
     return BoardTile;
+    
 });
