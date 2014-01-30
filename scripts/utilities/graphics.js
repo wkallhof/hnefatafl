@@ -75,13 +75,21 @@ define(function (require) {
         drawTile: function (x,y,value) {
             var point = fetchCanvasPointByTilePoint(x,y,this);
 
-            this.context.beginPath();
-			this.context.rect(point.x,point.y,this.tileWidth,this.tileHeight);
-			this.context.fillStyle = fetchTileFillStyle(value);
-			this.context.fill();
-			this.context.lineWidth = 2;
-			this.context.strokeStyle = 'black';
-			this.context.stroke();
+            //Fetch tile offset
+            var offset = fetchTileOffset(value);
+
+            //Draw image
+            this.context.drawImage(
+                this.spriteMap, //Image to draw
+                offset.x, //crop x
+                offset.y, //crop y
+                this.tileHeight, //crop width
+                this.tileWidth, //crop height
+                point.x, //draw x
+                point.y, //draw y
+                this.tileHeight, //draw width
+                this.tileWidth //draw height
+            );
         },
 
         drawPiece: function (piece) {
@@ -161,12 +169,12 @@ define(function (require) {
         }
     };
 
-    function fetchTileFillStyle(value) {
+    function fetchTileOffset(value) {
     	switch(value)
     	{
-    		case 1 : return 'black';
-    		case 2 : return 'white';
-    		default : return 'grey';
+    		case 1 : return {x:0,y:80};
+    		case 2 : return {x:0,y:80};
+    		default : return {x:0,y:80};
     	}
 
     };
